@@ -88,7 +88,7 @@ if __name__ == '__main__':
             for conclusion_part in conclusion:
                 print(conclusion_part, end=" ")
                 if conclusion_part != get_last_element(conclusion):
-                    print("and/or", end=' ')
+                    print("and/or", end=" ")
 
         # если у нас нет информации о фактах пользователя, то выводим соответствующее сообщение
         else:
