@@ -1,8 +1,15 @@
 '''
+TASK:
 В качестве входных данных для программы должны использоваться факты,
 указывающие желательную характеристику, которую должен иметь кустарник,
 а результатом работы программы должен быть список растений,
 обладающий всеми необходимыми характеристиками.
+
+EXAMPLES:
+устойчивость к холоду, простота культивирования, быстрота роста
+устойчивость к холоду, устойчивость к затенению, устойчивость к засухе,
+устойчивость к влажной почве, устойчивость к кислой почве, устойчивость к городским условиям,
+пригодность для кадочного выращивания, простота культивирования, быстрота роста
 '''
 
 # в фактах содержатся пары кустарник-характеристики
@@ -84,35 +91,66 @@ facts = {
     ]
 }
 
+
+# возвращает последний элемент списка
+def get_last_element(user_list):
+    return user_list[-1]
+
+
 if __name__ == '__main__':
     while True:
         # выводы, сделанные на основе фактов
         conclusion = []
 
-        # факт, который вводит пользователь
-        user_fact = str(input("\nTell me a fact\n"))
+        # факты, которые вводит пользователь
+        user_facts = str(input('\nTell me a fact. Example input:\nпростота культивирования, быстрота роста\n')) \
+            .split(", ")
 
-        # проверяем содержит ли факт пользователя известные нашей базе факты
-        for fact in facts:
-            if user_fact.__contains__(fact[0]) and not conclusion.__contains__(fact[1]):
-                conclusion.append(fact[1])
+        characteristics = [
+            "устойчивость к холоду",
+            "устойчивость к затенению",
+            "устойчивость к засухе",
+            "устойчивость к влажной почве",
+            "устойчивость к кислой почве",
+            "устойчивость к городским условиям",
+            "пригодность для кадочного выращивания",
+            "простота культивирования",
+            "быстрота роста"
+        ]
 
-        # если несколько фактов совпало с вводом пользователя, то перечисляем все возможные выводы
-        if len(conclusion) >= 1:
-            print("This plant may have a", end=' ')
+        # удаляем повторяющиеся факты
+        for user_fact in user_facts:
+            while user_facts.count(user_fact) > 1:
+                user_facts.remove(user_fact)
 
-            # избавляемся от взаимоисключающих вариантов
-            if conclusion.__contains__("balanced nutrition") and len(conclusion) > 1:
-                conclusion.remove("balanced nutrition")
+        # проверяем, содержат ли факты пользователя известные нашей базе факты, и удаляем лишние
+        existing_facts = []
+        for user_fact in user_facts:
+            if user_fact in characteristics:
+                existing_facts.append(user_fact)
+        user_facts = existing_facts
 
-            # составляем конечный вывод
-            for conclusion_part in conclusion:
-                print(conclusion_part, end=" ")
-                if conclusion_part != get_last_element(conclusion):
-                    print("and/or", end=' ')
+        # проверяем, что существуют объекты со всеми искомыми пользователем характеристиками
+        if len(user_facts) >= 1:
+            for bush_name in facts:
+                characteristic = facts.get(bush_name)
+                if set(user_facts).issubset(characteristic):
+                    conclusion.append(bush_name)
 
-        # если у нас нет информации о фактах пользователя, то выводим соответствующее сообщение
+            # если объекты существуют - выводим их названия
+            if len(conclusion) >= 1:
+                for conclusion_part in conclusion:
+                    print(conclusion_part, end="")
+                    if conclusion_part != get_last_element(conclusion):
+                        print(", ", end="")
+
+            # в противном случае сообщаем, что совпадений не найдено
+            else:
+                print("I found nothing :(")
+
+        # если не было введено ни одного факта, который известен базе, то выводим сообщение о данной проблеме
         else:
-            print("I don't have enough information")
+            print("I have nothing to searching for")
 
+        existing_facts.clear()
         conclusion.clear()
