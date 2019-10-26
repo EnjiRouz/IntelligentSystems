@@ -75,3 +75,9 @@ if __name__ == '__main__':
             for user_fact in user_facts:
                 print("\nОбъяснение проблемы " + user_fact, end=":")
                 find_explanation(user_fact)
+
+        # если у нас нет информации о фактах пользователя, то выводим соответствующее сообщение
+        else:
+            print("Нет информации по данному факту")
+
+        existing_facts.clear()
