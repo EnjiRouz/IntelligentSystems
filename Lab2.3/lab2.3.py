@@ -81,11 +81,6 @@ if __name__ == '__main__':
         user_facts = str(input('\nВведите процент долга и роста через запятую, например:\n80, 42\n')) \
             .split(", ")
 
-        # удаляем повторяющиеся факты
-        for user_fact in user_facts:
-            while user_facts.count(user_fact) > 1:
-                user_facts.remove(user_fact)
-
         # проверяем, являюется ли факты пользователя числами, и удаляем лишние
         existing_facts = []
         for user_fact in user_facts:
