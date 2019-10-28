@@ -1,4 +1,4 @@
-'''
+"""
 TASK:
 Разработайте экспертную систему
 продукционного типа с обратным логическим выводом
@@ -12,25 +12,22 @@ TASK:
 
 EXAMPLES:
 сел аккумулятор
-'''
+"""
+import xlrd
+
+# открываем файл
+database = xlrd.open_workbook('database2.2.xls', formatting_info=True)
+
+# выбираем активный лист
+sheet = database.sheet_by_index(0)
+
+# получаем список значений из всех записей и преобразуем его в словарь
+causes_of_machine_failure = []
+for characteristic_group in [sheet.row_values(i)[1] for i in range(sheet.nrows - 1) if sheet.row_values(i)[1]]:
+    causes_of_machine_failure.append(characteristic_group.split(", "))
 
 # в фактах содержатся пары следствие-причина
-global facts
-facts = {
-    "сел аккумулятор": [
-        "двигатель не заводится",
-        "фары не горят"
-    ],
-
-    "двигатель не заводится": [
-        "указатель бензина находится на нуле",
-        "засорился бензонасос"
-    ],
-
-    "нет бензина": [
-        "указатель бензина находится на нуле"
-    ]
-}
+facts = dict(zip(sheet.col_values(0, 0, sheet.nrows - 1), causes_of_machine_failure))
 
 
 # возвращает последний элемент списка
@@ -70,7 +67,7 @@ if __name__ == '__main__':
                 existing_facts.append(user_fact)
         user_facts = existing_facts
 
-        # рекурсионный вызов для поиска объяснения
+        # рекурсивнный вызов для поиска объяснения
         if len(user_facts) >= 1:
             for user_fact in user_facts:
                 print("\nОбъяснение проблемы " + user_fact, end=":")
@@ -81,3 +78,4 @@ if __name__ == '__main__':
             print("Нет информации по данному факту")
 
         existing_facts.clear()
+        causes_of_machine_failure.clear()

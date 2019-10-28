@@ -75,7 +75,7 @@ if __name__ == '__main__':
                 existing_facts.append(user_fact)
         user_facts = existing_facts
 
-        # рекурсионный вызов для установления факта родства
+        # рекурсивнный вызов для установления факта родства
         if len(user_facts) == 2:
             person1 = get_first_element(user_facts)
             person2 = get_last_element(user_facts)
