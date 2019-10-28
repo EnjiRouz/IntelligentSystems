@@ -1,4 +1,4 @@
-'''
+"""
 Реализуйте приведенное в описании отношение предок
 
 EXAMPLES:
@@ -6,33 +6,22 @@ EXAMPLES:
 Бабушка Катя, Сводный брат Витя
 Дедушка Вася, Сестра Алёнка
 Бабушка Агафья, Сводный брат Витя
-'''
+"""
+import xlrd
+
+# открываем файл
+database = xlrd.open_workbook('database2.1.xls', formatting_info=True)
+
+# выбираем активный лист
+sheet = database.sheet_by_index(0)
+
+# получаем список значений из всех записей и преобразуем его в словарь
+children_names = []
+for characteristic_group in [sheet.row_values(i)[1] for i in range(sheet.nrows - 1) if sheet.row_values(i)[1]]:
+    children_names.append(characteristic_group.split(", "))
 
 # в фактах содержатся пары родитель-дети
-global facts
-facts = {
-    "Дедушка Вася": [
-        "Папа Максим",
-        "Дядя Федор"
-    ],
-    "Бабушка Агафья": [
-        "Папа Максим",
-        "Дядя Федор"
-    ],
-    "Папа Максим": [
-        "Брат Андрей",
-        "Сестра Алёнка",
-        "Сводный брат Витя"
-    ],
-    "Мама Галя": [
-        "Брат Андрей",
-        "Сестра Алёнка"
-    ],
-    "Бабушка Катя": [
-        "Мама Галя",
-        "Тётя Юля"
-    ],
-}
+facts = dict(zip(sheet.col_values(0, 0, sheet.nrows - 1), children_names))
 
 
 # возвращает последний элемент списка
@@ -99,3 +88,4 @@ if __name__ == '__main__':
             print("Введите ПАРУ предполагаемых родственников, занесённых в базу:", known_names)
 
         existing_facts.clear()
+        children_names.clear()
