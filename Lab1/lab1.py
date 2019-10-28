@@ -19,13 +19,13 @@ The plant is purplish in color and has delayed in maturing.
 import xlrd
 
 # открываем файл
-rb = xlrd.open_workbook('database1.xls', formatting_info=True)
+database = xlrd.open_workbook('database1.xls', formatting_info=True)
 
 # выбираем активный лист
-sheet = rb.sheet_by_index(0)
+sheet = database.sheet_by_index(0)
 
 # получаем список значений из всех записей
-facts = [sheet.row_values(rownum) for rownum in range(sheet.nrows)]
+facts = [sheet.row_values(row) for row in range(sheet.nrows)]
 
 # в фактах содержатся пары симптом-вывод
 is_changed = True
