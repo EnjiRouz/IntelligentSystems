@@ -1,4 +1,4 @@
-'''
+"""
 FACTS:
 A plant with stunted growth may have a nitrogen deficiency.
 A plant that is pale yellow in color may have a nitrogen deficiency.
@@ -15,26 +15,20 @@ EXAMPLES:
 The plant has stunted root growth.
 The plant is purplish in color.
 The plant is purplish in color and has delayed in maturing.
-'''
+"""
+import xlrd
+
+# открываем файл
+rb = xlrd.open_workbook('database1.xls', formatting_info=True)
+
+# выбираем активный лист
+sheet = rb.sheet_by_index(0)
+
+# получаем список значений из всех записей
+facts = [sheet.row_values(rownum) for rownum in range(sheet.nrows)]
 
 # в фактах содержатся пары симптом-вывод
-global facts
-global is_changed
-
 is_changed = True
-facts = [
-    ["stunted growth", "nitrogen deficiency"],
-    ["pale yellow in color", "nitrogen deficiency"],
-    ["reddish-brown leaf edges", "nitrogen deficiency"],
-    ["stunted root growth", "phosphorus deficiency"],
-    ["spindly stalk", "phosphorus deficiency"],
-    ["purplish in color", "phosphorus deficiency"],
-    ["delayed in maturing", "phosphorus deficiency"],
-    ["leaf edges that appear scorched", "potassium deficiency"],
-    ["weakened stems", "potassium deficiency"],
-    ["shriveled seeds or fruits", "potassium deficiency"],
-    ["green", "balanced nutrition"]
-]
 
 
 # добавляет новый факт
