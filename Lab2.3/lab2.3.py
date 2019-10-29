@@ -53,11 +53,19 @@ facts = {
     "рост": growth_facts
 }
 
+"""
 # пары долг-рост наилучших вариантов для покупки
 best_choices = [
     ["средний", "высокий"],
     ["низкий", "высокий"],
     ["низкий", "средний"]
+]
+"""
+
+# пары долг-рост наилучших вариантов для покупки
+best_choices = [
+    debt_facts["средний"][1],
+    growth_facts["средний"][0]
 ]
 
 
@@ -110,11 +118,19 @@ if __name__ == '__main__':
             debt = get_first_element(user_facts)
             growth = get_last_element(user_facts)
 
+            """
             conclude(debt, facts["долг"])
             conclude(growth, facts["рост"])
-
+            
             # делаем вывод на основе типов долга/роста
             if best_choices.__contains__(conclusion):
+                print("Можно вложиться в акции предприятия с долгом", debt, "% и ростом", growth, "%")
+            else:
+                print("Не стоит вкладываться в акции предприятия с долгом", debt, "% и ростом", growth, "%")
+            """
+
+            # делаем вывод на основе типов долга/роста
+            if debt <= get_first_element(best_choices) and growth >= get_last_element(best_choices):
                 print("Можно вложиться в акции предприятия с долгом", debt, "% и ростом", growth, "%")
             else:
                 print("Не стоит вкладываться в акции предприятия с долгом", debt, "% и ростом", growth, "%")
