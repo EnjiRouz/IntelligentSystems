@@ -23,8 +23,8 @@ sheet = database.sheet_by_index(0)
 
 # получаем список значений из всех записей и преобразуем его в словарь
 causes_of_machine_failure = []
-for characteristic_group in [sheet.row_values(i)[1] for i in range(sheet.nrows - 1) if sheet.row_values(i)[1]]:
-    causes_of_machine_failure.append(characteristic_group.split(", "))
+for causes_group in [sheet.row_values(i)[1] for i in range(sheet.nrows - 1) if sheet.row_values(i)[1]]:
+    causes_of_machine_failure.append(causes_group.split(", "))
 
 # в фактах содержатся пары следствие-причина
 facts = dict(zip(sheet.col_values(0, 0, sheet.nrows - 1), causes_of_machine_failure))

@@ -1,4 +1,4 @@
-'''
+"""
 TASK:
 Разработайте экспертную систему продукционного типа с обратным логическим выводом
 
@@ -17,25 +17,43 @@ EXAMPLES:
 100, 50
 0, 40
 120.01, 100
-'''
+"""
+import xlrd
+
+
+# получить словарь из таблицы
+def extract_dictionary(database_name):
+    # открываем файл
+    debt_database = xlrd.open_workbook(database_name, formatting_info=True)
+    # выбираем активный лист
+    sheet = debt_database.sheet_by_index(0)
+    # получаем список значений из всех записей и преобразуем его в словарь
+    values = []
+    for values_group in [sheet.row_values(i)[1] for i in range(sheet.nrows - 1) if sheet.row_values(i)[1]]:
+        value_list = values_group.split(", ")
+        float_list = []
+        for number in value_list:
+            if number == 'inf':
+                number = float('inf')
+            else:
+                number = float(number)
+            float_list.append(float(number))
+        values.append(float_list)
+
+    # в фактах содержатся пары следствие-причина
+    return dict(zip(sheet.col_values(0, 0, sheet.nrows - 1), values))
+
+
+debt_facts = extract_dictionary('database2.3_debt.xls')
+growth_facts = extract_dictionary('database2.3_growth.xls')
 
 # в фактах содержатся пары параметр - верхняя и нижняя границы
-global facts
 facts = {
-    "долг": {
-            "низкий": [0.00, 90.00],
-            "средний": [90.01, 120.00],
-            "высокий": [120.01, float('inf')]
-    },
-    "рост": {
-            "низкий": [0.00, 14.99],
-            "средний": [15.00, 40.00],
-            "высокий": [40.01, float('inf')]
-    }
+    "долг": debt_facts,
+    "рост": growth_facts
 }
 
 # пары долг-рост наилучших вариантов для покупки
-global best_choices
 best_choices = [
     ["средний", "высокий"],
     ["низкий", "высокий"],

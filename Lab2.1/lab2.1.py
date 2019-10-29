@@ -17,8 +17,8 @@ sheet = database.sheet_by_index(0)
 
 # получаем список значений из всех записей и преобразуем его в словарь
 children_names = []
-for characteristic_group in [sheet.row_values(i)[1] for i in range(sheet.nrows - 1) if sheet.row_values(i)[1]]:
-    children_names.append(characteristic_group.split(", "))
+for names_group in [sheet.row_values(i)[1] for i in range(sheet.nrows - 1) if sheet.row_values(i)[1]]:
+    children_names.append(names_group.split(", "))
 
 # в фактах содержатся пары родитель-дети
 facts = dict(zip(sheet.col_values(0, 0, sheet.nrows - 1), children_names))
