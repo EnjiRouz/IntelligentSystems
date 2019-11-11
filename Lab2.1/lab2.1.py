@@ -1,5 +1,6 @@
 """
 Реализуйте приведенное в описании отношение предок
+TODO Всех потомков проверять
 
 EXAMPLES:
 Бабушка Агафья, Брат Андрей
@@ -50,6 +51,39 @@ def relationship_test(person_1, person_2):
         return is_ancestor
 
 
+# рекрусивная проверка родства: является ли человек 1 предком человека 2 в конкретном поколении
+def relationship_test(person_1, person_2, required_generation, generation_count):
+    if not facts.keys().__contains__(person_1):
+        return False
+    else:
+        if facts[person_1].__contains__(person_2):
+            if required_generation == generation_count:
+                return True
+            else:
+                return False
+
+        is_ancestor = False
+        for fact in facts[person_1]:
+            is_ancestor = relationship_test(fact, person_2, required_generation, generation_count + 1)
+            if is_ancestor:
+                break
+        return is_ancestor
+
+
+# рекурсивный способ получения всех потомков в заданном поколении
+def get_offspring(person, required_generation, generation_count):
+    offsprings = []
+    if not facts.keys().__contains__(person):
+        return offsprings
+
+    if required_generation == generation_count:
+        return facts[person]
+    else:
+        for kid in facts[person]:
+            offsprings.append(get_offspring(kid, required_generation, generation_count + 1))
+        return offsprings
+
+
 if __name__ == '__main__':
     while True:
         # факты, которые вводит пользователь
@@ -80,10 +114,25 @@ if __name__ == '__main__':
             person1 = get_first_element(user_facts)
             person2 = get_last_element(user_facts)
 
-            if relationship_test(person1, person2):
-                print(person1, "является предком", person2)
+            # поколение, которое вводит пользователь
+            generation = int(input('\nВведите поколение, в котором желаете получить родственника.\n'))
+            if generation is not None:
+                if relationship_test(person1, person2, generation, 0):
+                    print(person1, "является предком", person2, "в поколении", generation)
+                else:
+                    print(person1, "не является предком", person2, "в поколении", generation)
             else:
-                print(person1, "не является предком", person2)
+                if relationship_test(person1, person2):
+                    print(person1, "является предком", person2)
+                else:
+                    print(person1, "не является предком", person2)
+        elif len(user_facts) == 1:
+            person1 = get_first_element(user_facts)
+
+            # поколение, которое вводит пользователь
+            generation = int(input('\nВведите поколение, в котором желаете получить родственника.\n'))
+            if generation is not None:
+                print(get_offspring(person1, generation, 0))
         else:
             print("Введите ПАРУ предполагаемых родственников, занесённых в базу:", known_names)
 
