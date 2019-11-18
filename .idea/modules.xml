@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/Lab2.1/.idea/Lab2.1.iml" filepath="$PROJECT_DIR$/Lab2.1/.idea/Lab2.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab2.2/.idea/Lab2.2.iml" filepath="$PROJECT_DIR$/Lab2.2/.idea/Lab2.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab2.3/.idea/Lab2.3.iml" filepath="$PROJECT_DIR$/Lab2.3/.idea/Lab2.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NeuralNetwork/.idea/NeuralNetwork.iml" filepath="$PROJECT_DIR$/NeuralNetwork/.idea/NeuralNetwork.iml" />
     </modules>
   </component>
 </project>
