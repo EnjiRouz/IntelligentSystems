@@ -2,7 +2,6 @@ import numpy as np
 
 
 class Perceptron(object):
-
     def __init__(self, no_of_inputs, threshold=100, learning_rate=0.01):
         self.threshold = threshold
         self.learning_rate = learning_rate
@@ -24,26 +23,16 @@ class Perceptron(object):
                 self.weights[0] += self.learning_rate * (label - prediction)
 
 
-'''
-import numpy as np
-from perceptron import Perceptron
+if __name__ == '__main__':
+    training_inputs = [np.array([1, 1]), np.array([1, 0]), np.array([0, 1]), np.array([0, 0])]
+    labels = np.array([1, 0, 0, 0])
 
-training_inputs = []
-training_inputs.append(np.array([1, 1]))
-training_inputs.append(np.array([1, 0]))
-training_inputs.append(np.array([0, 1]))
-training_inputs.append(np.array([0, 0]))
+    perceptron = Perceptron(2)
+    print("Initial weights: "+str(perceptron.weights))
 
-labels = np.array([1, 0, 0, 0])
+    perceptron.train(training_inputs, labels)
+    print("Prediction for [1, 1]: "+str(perceptron.predict(np.array([1, 1]))))
+    print("Prediction for [0, 1]: "+str(perceptron.predict(np.array([0, 1]))))
+    print("Final weights: "+str(perceptron.weights))
 
-perceptron = Perceptron(2)
-perceptron.train(training_inputs, labels)
-
-inputs = np.array([1, 1])
-perceptron.predict(inputs) 
-#=> 1
-
-inputs = np.array([0, 1])
-perceptron.predict(inputs) 
-#=> 0
-'''
+    training_inputs.clear()
