@@ -25,7 +25,7 @@ class Perceptron(object):
                     self.weights[1:] += 1
                 elif prediction > output:
                     self.weights[0] -= 1
-                    
+
                 # дельта правило
                 # self.weights[1:] += self.learning_rate * (output - prediction) * inputs
                 # self.weights[0] += self.learning_rate * (output - prediction)
