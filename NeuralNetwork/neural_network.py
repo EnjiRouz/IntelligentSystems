@@ -20,7 +20,7 @@ class NeuralNetwork:
         self.input = input_layer
         self.weights1 = np.random.rand(self.input.shape[1], 4)
         self.weights2 = np.random.rand(4, 1)
-        self.y = output_layer
+        self.output_layer = output_layer
         self.output = np.zeros(output_layer.shape)
 
     def feedforward(self):
@@ -29,8 +29,8 @@ class NeuralNetwork:
         return self.layer2
 
     def back_propagation(self):
-        self.weights1 += np.dot(self.input.T, np.dot(2 * (self.y - self.output) * sigmoid_derivative(self.output), self.weights2.T) * sigmoid_derivative(self.layer1))
-        self.weights2 += np.dot(self.layer1.T, 2 * (self.y - self.output) * sigmoid_derivative(self.output))
+        self.weights1 += np.dot(self.input.T, np.dot(2 * (self.output_layer - self.output) * sigmoid_derivative(self.output), self.weights2.T) * sigmoid_derivative(self.layer1))
+        self.weights2 += np.dot(self.layer1.T, 2 * (self.output_layer - self.output) * sigmoid_derivative(self.output))
 
     def train(self):
         self.output = self.feedforward()
