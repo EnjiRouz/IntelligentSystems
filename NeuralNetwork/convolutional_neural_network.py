@@ -3,7 +3,7 @@ import numpy as np
 # импорт набора для обучения и настроек для keras
 from keras.datasets import cifar10
 from keras.models import Sequential
-from keras.layers import Dense, Flatten, Activation, Dropout
+from keras.layers import Dense, Flatten, Dropout
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.utils import np_utils
 
@@ -91,7 +91,3 @@ with open('model_summary.txt', 'w') as f:
         print("Точность работы на тренировочных данных: %.2f%%" % (train_scores[1] * 100))
         print("Точность работы на тестовых данных: %.2f%%" % (test_scores[1] * 100))
         model.summary()
-
-# для использования модели добавить
-# from keras.models import load_model
-# model = load_model("cifar10_model.h5")
