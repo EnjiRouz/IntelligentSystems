@@ -76,7 +76,7 @@ model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accura
 
 # обучение сети и определение процента валидационной выборки (10% от той, на которой тренируется сеть при параметре 0.1)
 # для повышения качества обучения при градиентном спуске включено перемешивание данных
-model.fit(input_train, output_train, batch_size=32, epochs=50, validation_split=0.1, shuffle=True)
+model.fit(input_train, output_train, batch_size=32, epochs=100, validation_split=0.1, shuffle=True)
 
 # проверка точности модели на тренировочных данных
 train_scores = model.evaluate(input_train, output_train, verbose=0)
@@ -92,4 +92,6 @@ with open('model_summary.txt', 'w') as f:
         print("Точность работы на тестовых данных: %.2f%%" % (test_scores[1] * 100))
         model.summary()
 
-# model = load_model('my_model.h5')
+# для использования модели добавить
+# from keras.models import load_model
+# model = load_model("cifar10_model.h5")
