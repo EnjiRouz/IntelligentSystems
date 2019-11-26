@@ -27,6 +27,7 @@ def load_image(img_file_path):
     return np_image
 
 
+# вывод результатов распознавания с цветовой пометкой
 def check_expectations_and_print_result(expected_class, recognized_class):
     if expected_class == recognized_class:
         print("\033[36m {}".format(labels[recognized_class]))
