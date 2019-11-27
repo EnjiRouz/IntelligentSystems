@@ -68,10 +68,10 @@ model.add(Dense(512, activation="relu"))
 # создание слоя регуляризации
 model.add(Dropout(0.5))
 
-# создание выходного слоя с использованием 10 нейронов
+# создание выходного слоя с использованием 10 нейронов (по количеству классов)
 model.add(Dense(10, activation="softmax"))
 
-# компиляция сети
+# компиляция сети (используем categorical, поскольку у нас несколько классов, используем Stochastic Gradient Descent)
 model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accuracy"])
 
 # обучение сети и определение процента валидационной выборки (10% от той, на которой тренируется сеть при параметре 0.1)
