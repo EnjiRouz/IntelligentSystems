@@ -7,7 +7,7 @@ from keras.layers import Dense, Flatten, Dropout
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.utils import np_utils
 
-# испорт библиотеки для вывода лога
+# импорт библиотеки для вывода лога
 from contextlib import redirect_stdout
 
 # задание seed для повторяемости результатов

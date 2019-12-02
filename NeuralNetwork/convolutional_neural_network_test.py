@@ -40,11 +40,13 @@ if __name__ == "__main__":
     ship_array = load_image("photos_from_web/ship.jpg")
     horse_array = load_image("photos_from_web/horse.jpg")
     cat_array = load_image("photos_from_web/cat.jpg")
+    dog_array = load_image("photos_from_web/dog.jpg")
 
     # определение ожидаемых классов
     expected_ship_class = 8
     expected_horse_class = 7
     expected_cat_class = 3
+    expected_dog_class = 5
 
     # загрузка модели
     model = load_model("cifar10_model.h5")
@@ -53,8 +55,10 @@ if __name__ == "__main__":
     recognized_ship_class = int(model.predict_classes(ship_array))
     recognized_horse_class = int(model.predict_classes(horse_array))
     recognized_cat_class = int(model.predict_classes(cat_array))
+    recognized_dog_class = int(model.predict_classes(dog_array))
 
     # вывод результатов распознавания с цветовой пометкой
     check_expectations_and_print_result(expected_ship_class, recognized_ship_class)
     check_expectations_and_print_result(expected_horse_class, recognized_horse_class)
     check_expectations_and_print_result(expected_cat_class, recognized_cat_class)
+    check_expectations_and_print_result(expected_dog_class, recognized_dog_class)
